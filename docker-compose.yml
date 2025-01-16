@@ -1,5 +1,5 @@
 services:
-    backend:
+    laravel.test:
         build:
             context: './vendor/laravel/sail/runtimes/8.4'
             dockerfile: Dockerfile
@@ -61,6 +61,17 @@ services:
         command: ["npx", "vite"]
         networks:
             - sail
+
+    scheduler:
+        image: sail-8.4/app
+        container_name: laravel-scheduler
+        entrypoint: "/bin/bash -c 'while true; do php /var/www/html/artisan schedule:run; sleep 3600; done'"  # Run every hour (3600 seconds)
+        volumes:
+            - '.:/var/www/html'
+        networks:
+            - sail
+        depends_on:
+            - laravel.test
 
 networks:
     sail:
