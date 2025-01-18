@@ -4,25 +4,32 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class UpdateArticlesTableAddNullableUrl extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->string('url')->nullable()->change();
+            // Add the `url` column if it does not exist
+            if (!Schema::hasColumn('articles', 'url')) {
+                $table->string('url')->nullable();
+            }
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->string('url')->nullable(false)->change();
+            $table->dropColumn('url');
         });
     }
-};
+}
