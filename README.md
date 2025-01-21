@@ -92,5 +92,7 @@ Innonews is a modern web application designed to deliver personalized news exper
    -GUARDIAN_API_KEY=d5a7647ce3bab74d (The Guardian)
    -NYT_API_KEY=gccf5n0Pqlq1hrSWLCZZL (New York Times)
 
-6. ### Contact  
+6. Run the following command ``./vendor/bin/sail php artisan articles:scrape
+
+7. ### Contact  
 For questions, feedback, or support, please reach out to me at: **[richiekamota@gmail.com]**.  
