@@ -16,7 +16,7 @@ class CreateArticlesTable extends Migration
             $table->string('source');
             $table->string('author')->nullable();
             $table->timestamp('published_at')->nullable();
-            $table->string('url')->nullable()->change();
+            $table->string('url')->nullable();
             $table->string('category')->default('General');
             $table->timestamps();
         });

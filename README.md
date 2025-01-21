@@ -1,66 +1,96 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Innonews - Personalized News Platform  
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Innonews is a modern web application designed to deliver personalized news experiences tailored to user preferences. With powerful features and a mobile-responsive design, Innonews ensures users stay informed and engaged.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features  
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 1. **User Authentication and Registration**  
+- **Secure Registration:** Users can sign up with an email and password to ensure data security.  
+- **Login Access:** Seamless login functionality for accessing personalized content.  
+- **Account Management:** Update profiles and preferences with ease.  
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 2. **Article Search and Filtering**  
+- **Keyword Search:** Quickly find articles using relevant keywords.  
+- **Date Filtering:** Narrow down results by selecting specific date ranges.  
+- **Category and Source Filters:** Customize search results by category or source.  
 
-## Learning Laravel
+### 3. **Personalized News Feed**  
+- **Preferred Sources:** Add favorite news outlets to your feed.  
+- **Category Selection:** Choose categories like sports, technology, business, etc.  
+- **Author Preferences:** Follow specific authors for targeted content.  
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 4. **Mobile-Responsive Design**  
+- **Adaptive Layouts:** Content adjusts dynamically for all screen sizes.  
+- **Touch-Friendly UI:** Smooth navigation for mobile users.  
+- **Fast Loading Times:** Lightweight design optimized for mobile networks.  
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Why Choose Innonews?  
+- **Personalized Experience:** Tailored news feed based on user preferences.  
+- **Powerful Filtering Options:** Quickly access relevant articles.  
+- **Mobile Accessibility:** Consistent experience across devices.  
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Getting Started  
+1. **Sign Up:** Create an account to access personalized features.  
+2. **Customize Your Feed:** Select preferred sources, categories, and authors.  
+3. **Stay Informed:** Enjoy a seamless, mobile-friendly news experience.  
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Getting Started ( for Developers)  
+1. Clone the Github repo.  
+2. Run the following command ```./vendor/bin/sail -up  
+3. cd into frontend folder and look for a file named tailwind.config.ts and paste in the following code:    ```/** @type {import('tailwindcss').Config} */
+    export default {
+        content: [
+            "./index.html",
+            "./src/**/*.{js,ts,jsx,tsx}",
+        ],
+        theme: {
+            extend: {},
+        },
+        plugins: [],
+    }
+4. In the same directory look for another file named vite.config.ts and open it to paste the following      code: ```import { defineConfig } from 'vite';
+ ```import react from '@vitejs/plugin-react';
 
-## Contributing
+ ```export default defineConfig({
+    plugins: [react()],
+      server: {
+        proxy: {
+            '/api': 'http://localhost:8086', // Adjust the URL to match your Laravel app's network
+         },
+        port: 5173,
+        // Remove or set `open: false` to prevent Vite from trying to open the browser
+        host: true,
+        open: false,
+        watch: {
+            usePolling: true,
+         },
+    },
+    optimizeDeps: {
+        include: [
+            'react',
+            'react-dom',
+        ],
+    },
+    build: {
+        rollupOptions: {
+            //input: 'index.html', // Specify the path to your entry HTML file
+        },
+    },
+  });
+5. Don't forget to run ```./vendor/bin/sail php artisan migrate
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+6. Don't forget to set up your keys for the following api news sites(these are not real keys, you need to get your own): 
+   -NEWS_API_KEY=hhdbd748848484u8448  (News API)
+   -GUARDIAN_API_KEY=d5a7647ce3bab74d (The Guardian)
+   -NYT_API_KEY=gccf5n0Pqlq1hrSWLCZZL (New York Times)
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+6. ### Contact  
+For questions, feedback, or support, please reach out to me at: **[richiekamota@gmail.com]**.  

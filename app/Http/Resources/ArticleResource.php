@@ -21,6 +21,7 @@ class ArticleResource extends JsonResource
             'description' => $this->description,
             'author' => $this->author,
             'source' => $this->source,
+            'urlToImage' => $this->urlToImage,
             'category' => $this->category,
             'published_at' => $this->published_at,
             'created_at' => $this->created_at->toDateTimeString(),

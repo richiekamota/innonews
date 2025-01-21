@@ -61,10 +61,31 @@ class RegisterController extends BaseController
                 'name' => $user->name
             ], 'User logged in successfully.');
         }
-
+       
         // Return error if authentication fails
         return $this->sendError('Unauthorized.', ['error' => 'Unauthorized']);
     }
+
+    public function logout(Request $request)
+    {
+        try {
+            $user = $request->user();
+
+            if (!$user) {
+                return response()->json(['message' => 'User not authenticated'], 401);
+            }
+
+            $user->currentAccessToken()->delete();
+
+            return response()->json(['message' => 'Successfully logged out'], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'An error occurred while logging out',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
 
     /**
      * Validate registration input.

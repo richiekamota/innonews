@@ -12,16 +12,16 @@ class UserPreference extends Model
     // Define fillable properties
     protected $fillable = [
         'user_id',
-        'preferred_sources',
-        'preferred_categories',
-        'preferred_authors',
+        'sources',
+        'categories',
+        'authors',
     ];
 
     // Cast the JSON columns to arrays for easier manipulation
     protected $casts = [
-        'preferred_sources' => 'array',
-        'preferred_categories' => 'array',
-        'preferred_authors' => 'array',
+        'sources' => 'array',
+        'categories' => 'array',
+        'authors' => 'array',
     ];
 
     // Define the relationship with the User model

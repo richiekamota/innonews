@@ -54,6 +54,7 @@ class ScrapeArticles extends Command
 
         if ($response->ok()) {
             foreach ($response->json('articles') as $article) {
+                
                 Article::updateOrCreate(
                     ['title' => $article['title']],
                     [
@@ -74,68 +75,75 @@ class ScrapeArticles extends Command
     }
 
     /**
-     * Scrape articles from The Guardian API.
-     */
+    * Scrape articles from The Guardian API.
+    */
     private function scrapeTheGuardian(): void
     {
         $this->info('Scraping articles from The Guardian...');
         $apiKey = env('GUARDIAN_API_KEY');
         $response = Http::get("https://content.guardianapis.com/search", [
-            'api-key' => $apiKey,
-            'show-fields' => 'all',
-            'page-size' => 10, // Limit to 10 articles
+           'api-key' => $apiKey,
+           'show-fields' => 'all',
+           'page-size' => 10, // Limit to 10 articles
         ]);
 
         if ($response->ok()) {
-            foreach ($response->json('response.results') as $article) {
+          foreach ($response->json('response.results') as $article) {
                 Article::updateOrCreate(
-                    ['title' => $article['webTitle']],
-                    [
-                        'description' => $article['fields']['trailText'] ?? 'No description',
-                        'content' => $article['fields']['bodyText'] ?? 'No content',
-                        'source' => 'The Guardian',
-                        'author' => $article['fields']['byline'] ?? 'Unknown',
-                        'published_at' => $article['webPublicationDate'] ?? now(),
-                        'url' => $article['webUrl'],
-                        'category' => $article['sectionName'] ?? 'General',
+                   ['title' => $article['fields']['headline'] ?? $article['webTitle']], // Fallback to webTitle if headline is missing
+                   [
+                     'description' => $article['fields']['trailText'] ?? 'No description', // Added fallback for trailText
+                     'content' => $article['fields']['bodyText'] ?? 'No content', // Fallback for bodyText
+                     'source' => 'The Guardian',
+                     'author' => $article['fields']['byline'] ?? 'Unknown', // Fallback to 'Unknown' if byline is missing
+                     'published_at' => $article['webPublicationDate'] ?? now(), // Default to current time if missing
+                     'url' => $article['webUrl'],
+                     'category' => $article['sectionName'] ?? 'General', // Default to 'General' if sectionName is missing
+                     'urlToImage' => $article['fields']['thumbnail'] ?? null, // Added field for image URL, if available
+                     'short_url' => $article['fields']['shortUrl'] ?? null, // Added field for short URL
+                     'word_count' => $article['fields']['wordcount'] ?? 0, // Word count
                     ]
-                );
+               );
             }
             $this->info('The Guardian articles stored successfully.');
         } else {
-            $this->error('Failed to fetch articles from The Guardian: ' . $response->body());
-        }
+          $this->error('Failed to fetch articles from The Guardian: ' . $response->body());
+       }
     }
 
     /**
-     * Scrape articles from New York Times API.
-     */
+    * Scrape articles from New York Times API.
+    */
     private function scrapeNewYorkTimes(): void
     {
-        $this->info('Scraping articles from New York Times...');
-        $apiKey = env('NYT_API_KEY');
-        $response = Http::get("https://api.nytimes.com/svc/topstories/v2/home.json", [
+         $this->info('Scraping articles from New York Times...');
+         $apiKey = env('NYT_API_KEY'); // API key from environment
+         $response = Http::get("https://api.nytimes.com/svc/topstories/v2/home.json", [
             'api-key' => $apiKey,
-        ]);
+         ]);
 
         if ($response->ok()) {
-            foreach ($response->json('results') as $article) {
-                Article::updateOrCreate(
-                    ['title' => $article['title']],
-                    [
-                        'description' => $article['abstract'] ?? 'No description',
-                        'content' => $article['abstract'] ?? 'No content',
-                        'source' => 'New York Times',
-                        'author' => $article['byline'] ?? 'Unknown',
-                        'published_at' => $article['published_date'] ?? now(),
-                        'url' => $article['url'],
-                        'category' => $article['section'] ?? 'General',
-                    ]
-                );
-            }
-            $this->info('New York Times articles stored successfully.');
-        } else {
-            $this->error('Failed to fetch articles from New York Times: ' . $response->body());
+           $articles = $response->json('results'); // Dynamically fetch articles from the API
+
+            foreach ($articles as $article) {
+            
+              Article::updateOrCreate(
+                ['title' => $article['title']],
+                [
+                    'description' => $article['abstract'] ?? 'No description',
+                    'content' => $article['abstract'] ?? 'No content',
+                    'source' => 'New York Times',
+                    'author' => $article['byline'] ?? 'Unknown',
+                    'published_at' => $article['published_date'] ?? now(),
+                    'url' => $article['url'],
+                    'category' => $article['section'] ?? 'General',
+                ]
+            );            
         }
+
+         $this->info('New York Times articles stored successfully.');
+        } else {
+          $this->error('Failed to fetch articles from New York Times: ' . $response->body());
+       }
     }
-}
+}    

@@ -13,9 +13,12 @@ class Article extends Model
         'title',
         'description',
         'author',
+        'content',
+        'url',
         'source',
         'category',
         'published_at',
+        'urlToImage'
     ];
 
     protected $casts = [

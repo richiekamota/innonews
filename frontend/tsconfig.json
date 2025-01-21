@@ -13,7 +13,7 @@
       "resolveJsonModule": true,                   // Allow importing .json files
       "isolatedModules": true,                     // Ensure each file is treated as a separate module
       "noEmit": true,                              // Do not emit output files
-      "jsx": "react-jsx"                           // Enable React JSX transform
+      "jsx": "react-jsx",                           // Enable React JSX transform
     },
     "include": ["src"],                            // Specify files or directories to include
     "exclude": ["node_modules", "dist"]            // Specify files or directories to exclude
