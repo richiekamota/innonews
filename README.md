@@ -94,7 +94,8 @@ Innonews is a modern web application designed to deliver personalized news exper
   });
   ```
 5. Don't forget to run 
-```./vendor/bin/sail php artisan migrate
+```
+./vendor/bin/sail php artisan migrate
 ```
 
 6. Don't forget to set up your keys in your .env for the following api news sites(these are not real keys, you need to get your own): 
@@ -104,7 +105,10 @@ Innonews is a modern web application designed to deliver personalized news exper
     NYT_API_KEY=gccf5n0Pqlq1hrSWLCZZL (New York Times)
    ``` 
 
-6. Run the following command ``./vendor/bin/sail php artisan articles:scrape
+6. Run the following command 
+```
+./vendor/bin/sail php artisan articles:scrape
+```
 
 7. ### Contact  
 For questions, feedback, or support, please reach out to me at: **[richiekamota@gmail.com]**.  
