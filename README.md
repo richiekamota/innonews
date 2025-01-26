@@ -48,7 +48,8 @@ Innonews is a modern web application designed to deliver personalized news exper
 ```
 ./vendor/bin/sail -up  
 ```
-3. cd into frontend folder and look for a file named tailwind.config.ts and paste in the following code:    ```
+3. cd into frontend folder and look for a file named tailwind.config.ts and paste in the following code:    
+ ```
 /** @type {import('tailwindcss').Config} */
     export default {
         content: [
@@ -60,7 +61,7 @@ Innonews is a modern web application designed to deliver personalized news exper
         },
         plugins: [],
     }
-``
+
 4. In the same directory look for another file named vite.config.ts and open it to paste the following      code:
 
  import { defineConfig } from 'vite';
@@ -99,6 +100,7 @@ Innonews is a modern web application designed to deliver personalized news exper
 ```
 
 6. Don't forget to set up your keys in your .env for the following api news sites(these are not real keys, you need to get your own): 
+   ```
     NEWS_API_KEY=hhdbd748848484u8448  (News API)
     GUARDIAN_API_KEY=d5a7647ce3bab74d (The Guardian)
     NYT_API_KEY=gccf5n0Pqlq1hrSWLCZZL (New York Times)
