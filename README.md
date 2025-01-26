@@ -61,7 +61,7 @@ Innonews is a modern web application designed to deliver personalized news exper
         },
         plugins: [],
     }
-
+```
 4. In the same directory look for another file named vite.config.ts and open it to paste the following      code:
 
  import { defineConfig } from 'vite';
@@ -93,12 +93,11 @@ Innonews is a modern web application designed to deliver personalized news exper
         },
     },
   });
-
+```
 5. Don't forget to run 
 ```
 ./vendor/bin/sail php artisan migrate
 ```
-
 6. Don't forget to set up your keys in your .env for the following api news sites(these are not real keys, you need to get your own): 
    ```
     NEWS_API_KEY=hhdbd748848484u8448  (News API)
