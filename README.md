@@ -63,7 +63,7 @@ Innonews is a modern web application designed to deliver personalized news exper
     }
 ```
 4. In the same directory look for another file named vite.config.ts and open it to paste the following      code:
-
+```
  import { defineConfig } from 'vite';
  import react from '@vitejs/plugin-react';
 
@@ -94,6 +94,7 @@ Innonews is a modern web application designed to deliver personalized news exper
     },
   });
 ```
+
 5. Don't forget to run 
 ```
 ./vendor/bin/sail php artisan migrate
